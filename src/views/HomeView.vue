@@ -29,6 +29,14 @@
         </template>
       </ul>
     </div>
+
+    <div class="flex flex-col gap-4">
+      <Suspense>
+        <CityList />
+        <!-- loading state via #fallback slot -->
+        <template #fallback> Loading... </template>
+      </Suspense>
+    </div>
   </main>
 </template>
 
@@ -36,23 +44,24 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import CityList from "../components/CityList.vue";
 
-const router = useRouter()
+const router = useRouter();
 
 const previewCity = (searchResult) => {
   // console.log(searchResult)
-  const [city, state] = searchResult.place_name.split(",")
+  const [city, state] = searchResult.place_name.split(",");
   // console.log(city + ' ' + state)
   router.push({
-    name: 'cityView',
-    params: {state: state.replaceAll(" ", ""), city, city},
+    name: "cityView",
+    params: { state: state.replaceAll(" ", ""), city, city },
     query: {
       lat: searchResult.geometry.coordinates[1],
       long: searchResult.geometry.coordinates[0],
-      preview: true
-    }
-  })
-}
+      preview: true,
+    },
+  });
+};
 
 const mapboxApiKey =
   "pk.eyJ1IjoiYWxpcmF6YTEyMzQiLCJhIjoiY2x3dzg2c3NvMHIwcDJ6cjFsdWxlbTl3cCJ9.sdIuiqJawFPuy88eaC8CDg";
