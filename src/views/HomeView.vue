@@ -34,7 +34,9 @@
       <Suspense>
         <CityList />
         <!-- loading state via #fallback slot -->
-        <template #fallback> Loading... </template>
+        <template #fallback> 
+          <CityCardSkeleton />
+        </template>
       </Suspense>
     </div>
   </main>
@@ -45,6 +47,7 @@ import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import CityList from "../components/CityList.vue";
+import CityCardSkeleton from "../components/CityCardSkeleton.vue"
 
 const router = useRouter();
 
